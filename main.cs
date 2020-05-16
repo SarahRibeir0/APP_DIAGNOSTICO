@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Linq;
 
 class Usuario{
   protected int cpf;
@@ -77,9 +78,9 @@ class Paciente:Usuario {
     return sintomas[index];
   }
 
-
-
-
+  public string[] getSintomas(){
+    return sintomas;
+  }
 }
 
 class Doença{
@@ -107,8 +108,8 @@ class Doença{
     
   }
 
-  public string getSintomas(int index){
-    return sintomas[index];
+  public string[] getSintomas(){
+    return sintomas;
   }
 }
 
@@ -158,6 +159,7 @@ class MainClass {
     List<string> listaDoencas  = new List<string>();
     listaDoencas = Leitura("listadedoencas","doença");
     string[] doencas_paciente = listaDoencas.ToArray();
+    Console.WriteLine("\n\n");
 
     //Criação do paciente
     Paciente paciente1 = new Paciente(sintomas_paciente,doencas_paciente,cpf_cadastro,nome_cadastro,email_cadastro,senha_cadastro,idade_cadastro);
@@ -166,21 +168,32 @@ class MainClass {
   }
   
   public static List<string> Leitura(string nomedoarquivo, string tipoLista){
-      List<string> lista = new List<string>();
-      if (File.Exists(nomedoarquivo+".txt")) {
-        using(StreamReader file = new StreamReader(nomedoarquivo+".txt")) {  
-          string linha;  
-                
-          while ((linha = file.ReadLine()) != null) { 
-            Console.WriteLine("\nVocê possui "+tipoLista+" do tipo: "+linha+"(s ou n)?");
-            if(Console.ReadKey().KeyChar == 's'){
-              lista.Add(linha);
-            }
+    List<string> lista = new List<string>();
+    if (File.Exists(nomedoarquivo+".txt")) {
+      using(StreamReader file = new StreamReader(nomedoarquivo+".txt")) {  
+        string linha;  
+              
+        while ((linha = file.ReadLine()) != null) { 
+          Console.WriteLine("\nVocê possui "+tipoLista+" do tipo: "+linha+"(s ou n)?");
+          if(Console.ReadKey().KeyChar == 's'){
+            lista.Add(linha);
           }
-          file.Close();  
         }
-        
+      file.Close();  
       }
-      return lista;
     }
+    return lista;
+  }
+
+  public static int CompararSintomas(string[] sintPaciente, string[] sintDoenca){
+    int cont = 0;
+    for(int i=0;i<sintPaciente.Length;i++){
+      for(int j=0;j<sintDoenca.Length;j++){
+        if(sintPaciente[i].Equals(sintDoenca[j])){
+          cont++;
+        }
+      }
+    }
+    return cont;
+  }
 }
