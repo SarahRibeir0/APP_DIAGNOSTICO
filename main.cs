@@ -116,14 +116,44 @@ class Doença{
 class MainClass {
   public static void Main (string[] args) {
 
-    //REGISTRO DE DOENÇAS E SINTOMAS 
-    
-    
+     //REGISTRO DE DOENÇAS E SINTOMAS
+    Doença dengue = new Doença("1","dengue","sintDengue");
+    Doença rinite = new Doença("2","rinite","sintRinite");
+    Doença virose = new Doença ("3", "virose", "sintVirose");
+
     //CADASTRO PACIENTE
     Paciente paciente = new Paciente();
-    paciente = CadastrarPaciente();   
-    
+    paciente = CadastrarPaciente();
+
+    //COMPARAR SINTOMAS DO PACIENTE COM SINTOMAS DE TODAS AS DOENÇAS CADASTRADAS
+    string[] sintPaciente = paciente.getSintomas();
+
+    string[] sintDengue = dengue.getSintomas();
+    int numDengue = CompararSintomas(sintPaciente,sintDengue);
+
+    string[] sintRinite = rinite.getSintomas();
+    int numRinite = CompararSintomas(sintPaciente,sintRinite);
+
+    string[] sintVirose = virose.getSintomas();
+    int numVirose = CompararSintomas(sintPaciente,sintVirose);
+
+    //VERIFICAR QUAIS DOENÇAS POSSUEM MAIS SINTOMAS EM COMUM
+    Console.WriteLine("Sintomas Dengue: "+ numDengue);
+    Console.WriteLine("Sintomas Rinite: "+ numRinite);
+    Console.WriteLine("Sintomas Virose: "+ numVirose);
+
+    //MOSTRAR AS DOENÇAS MAIS PROVÁVEIS DE O PACIENTE TER
+    int[] teste = new int[3] {numDengue,numRinite,numVirose};
+    if(numDengue==teste.Max()){
+      Console.WriteLine("É mais provavél que o paciente tenha Dengue");
+    } else if(numRinite==teste.Max()){
+      Console.WriteLine("É mais provavél que o paciente tenha Rinite");
+    } else if(numVirose==teste.Max()){
+      Console.WriteLine("É mais provavél que o paciente tenha Virose");
     }
+    
+  }
+      
 
   public static Paciente CadastrarPaciente(){
     int cpf_cadastro;
