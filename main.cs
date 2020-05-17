@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 
 class Usuario{
-  protected int cpf;
+  protected string cpf;
   protected string nome;
   protected string email;
   protected string senha;
   protected int idade;
 
-  public Usuario(int cpf_user,string nome_user, string email_user, string senha_user,int idade_user){
+  public Usuario(string cpf_user,string nome_user, string email_user, string senha_user,int idade_user){
     cpf = cpf_user;
     nome = nome_user;
     email = email_user;
@@ -22,7 +22,7 @@ class Usuario{
 
   }
 
-  public void setCpf(int cpf_us){
+  public void setCpf(string cpf_us){
     cpf = cpf_us;
   }
 
@@ -56,7 +56,7 @@ class Paciente:Usuario {
   protected string[] doencas;
 
   
-  public Paciente(string[] sint_paciente,string[] doenc_paciente, int cpf,string nome, string email, string senha, int idade ): base(cpf, nome, email,senha,idade) {
+  public Paciente(string[] sint_paciente,string[] doenc_paciente, string cpf,string nome, string email, string senha, int idade ): base(cpf, nome, email,senha,idade) {
     int tam1 = sint_paciente.Length;
     sintomas = new string[tam1];
     for(int i=0;i<tam1;i++){
@@ -145,18 +145,50 @@ class MainClass {
     //MOSTRAR AS DOENÇAS MAIS PROVÁVEIS DE O PACIENTE TER
     int[] teste = new int[3] {numDengue,numRinite,numVirose};
     if(numDengue==teste.Max()){
-      Console.WriteLine("É mais provavél que o paciente tenha Dengue");
+      Console.WriteLine("É mais provavél que o paciente tenha Dengue!\n");
+      string leitura;
+      FileStream arquivo = new FileStream("orientDengue.txt",FileMode.Open, FileAccess.Read);
+      StreamReader lendo = new StreamReader(arquivo, Encoding.UTF8);
+        while(!lendo.EndOfStream)
+       { 
+        leitura=lendo.ReadLine();
+        Console.WriteLine(leitura);
+         }
+      lendo.Close();
+      arquivo.Close();
+
     } else if(numRinite==teste.Max()){
-      Console.WriteLine("É mais provavél que o paciente tenha Rinite");
+      Console.WriteLine("É mais provavél que o paciente tenha Rinite!\n");
+       string leitura;
+        FileStream arquivo = new FileStream("orientRinite.txt",FileMode.Open, FileAccess.Read);
+      StreamReader lendo = new StreamReader(arquivo, Encoding.UTF8);
+      while(!lendo.EndOfStream)
+        {
+        leitura=lendo.ReadLine();
+        Console.WriteLine(leitura);
+        }
+      lendo.Close();
+      arquivo.Close();
+
     } else if(numVirose==teste.Max()){
-      Console.WriteLine("É mais provavél que o paciente tenha Virose");
+      Console.WriteLine("É mais provavél que o paciente tenha Virose!\n");
+      string leitura;
+      FileStream arquivo = new FileStream("orientVirose.txt",FileMode.Open, FileAccess.Read);
+      StreamReader lendo = new StreamReader(arquivo, Encoding.UTF8);
+      while(!lendo.EndOfStream)
+        {
+        leitura=lendo.ReadLine();
+        Console.WriteLine(leitura);
+        }
+       lendo.Close();
+       arquivo.Close();
     }
     
   }
       
 
   public static Paciente CadastrarPaciente(){
-    int cpf_cadastro;
+    string cpf_cadastro;
     string nome_cadastro;
     string email_cadastro;
     string senha_cadastro;
@@ -164,7 +196,7 @@ class MainClass {
 
     Console.WriteLine("\nCADASTRO DE PACIENTE");
     Console.WriteLine("Digite seu CPF: ");
-    cpf_cadastro = Convert.ToInt32(Console.ReadLine());
+    cpf_cadastro = Console.ReadLine();
     Console.WriteLine("Digite seu nome completo:");
     nome_cadastro = Console.ReadLine();
     Console.WriteLine("Digite sua senha:");
