@@ -145,11 +145,43 @@ class MainClass {
     //MOSTRAR AS DOENÇAS MAIS PROVÁVEIS DE O PACIENTE TER
     int[] teste = new int[3] {numDengue,numRinite,numVirose};
     if(numDengue==teste.Max()){
-      Console.WriteLine("É mais provavél que o paciente tenha Dengue");
+      Console.WriteLine("É mais provavél que o paciente tenha Dengue!\n");
+      string leitura;
+      FileStream arquivo = new FileStream("orientDengue.txt",FileMode.Open, FileAccess.Read);
+      StreamReader lendo = new StreamReader(arquivo, Encoding.UTF8);
+        while(!lendo.EndOfStream)
+       {
+        leitura=lendo.ReadLine();
+        Console.WriteLine(leitura);
+         }
+      lendo.Close();
+      arquivo.Close();
+
     } else if(numRinite==teste.Max()){
-      Console.WriteLine("É mais provavél que o paciente tenha Rinite");
+      Console.WriteLine("É mais provavél que o paciente tenha Rinite!\n");
+       string leitura;
+        FileStream arquivo = new FileStream("orientRinite.txt",FileMode.Open, FileAccess.Read);
+      StreamReader lendo = new StreamReader(arquivo, Encoding.UTF8);
+      while(!lendo.EndOfStream)
+        {
+        leitura=lendo.ReadLine();
+        Console.WriteLine(leitura);
+        }
+      lendo.Close();
+      arquivo.Close();
+
     } else if(numVirose==teste.Max()){
-      Console.WriteLine("É mais provavél que o paciente tenha Virose");
+      Console.WriteLine("É mais provavél que o paciente tenha Virose!\n");
+      string leitura;
+      FileStream arquivo = new FileStream("orientVirose.txt",FileMode.Open, FileAccess.Read);
+      StreamReader lendo = new StreamReader(arquivo, Encoding.UTF8);
+      while(!lendo.EndOfStream)
+        {
+        leitura=lendo.ReadLine();
+        Console.WriteLine(leitura);
+        }
+       lendo.Close();
+       arquivo.Close();
     }
     
   }
